@@ -1,0 +1,102 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="PhoneApp6.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:drawerLayout ="clr-namespace:DrawerLayout;assembly=DrawerLayout"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0" x:Name="TitleBar" Background="#6dc5dd" Height="100">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Margin="5" x:Name="Hamburger"
+                   Source="/Icons/Hamb.png"
+                   HorizontalAlignment="Left"
+                   Tap="Hamburger_Tap"/>
+            <TextBlock Grid.Column="1" Text="MOMENTS" FontFamily="Segoe UI"
+                       FontSize="30" VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,100,0"/>
+        </Grid>
+        
+        <drawerLayout:DrawerLayout Grid.Row="1" Background="#f77462">
+            <!--Основной контент-->
+            <Grid x:Name="MainFrame" Background="White">
+                
+            </Grid>
+            
+            <!--Гамбургер меню-->
+            <Grid x:Name="HambMenu" Background="#f77462" Margin="0,0,380,0">
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <!--Star-->
+                        <Grid Grid.Row="0">
+                            <Button Height="80" Width="80" 
+                                    HorizontalAlignment="Left" 
+                                    Margin="5,0,0,0"
+                                    BorderThickness="0">
+                                <Button.Background>
+                                    <ImageBrush Stretch="Fill" ImageSource="/Icons/Star.png"/>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+                        
+                        <!--Dreams-->
+                        <Grid Grid.Row="1">
+                            <Button Height="80" Width="80"
+                                    HorizontalAlignment="Left"
+                                    Margin="5,0,0,0"
+                                    BorderThickness="0">
+                                <Button.Background>
+                                    <ImageBrush Stretch="Fill" ImageSource="/Icons/Moon.png"/>
+                                </Button.Background>
+                            </Button>
+                        </Grid>
+
+                        <!--Info-->
+                        <Grid Grid.Row="7">
+                            <Button Height="90" Width="90"
+                                    HorizontalAlignment="Left"
+                                    Margin="5,0,0,0"/>
+                        </Grid>
+                        
+                    </Grid>
+                </ScrollViewer>              
+            </Grid>
+        </drawerLayout:DrawerLayout>
+    </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
+            <shell:ApplicationBarIconButton IconUri="/Icons/add.png" Text="add"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/search.png" Text="search"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
+</phone:PhoneApplicationPage>
