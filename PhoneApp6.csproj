@@ -75,7 +75,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Bin\ARM\Debug</OutputPath>
-    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONEUSE_WP8_NATIVE_SQLITE </DefineConstants>
+    <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;USE_WP8_NATIVE_SQLITE </DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
@@ -110,6 +110,12 @@
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="ViewModel\DBHelperClass_Dreams.cs" />
     <Compile Include="ViewModel\ReadAllDreams.cs" />
+    <Compile Include="Views\AddStory.xaml.cs">
+      <DependentUpon>AddStory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Delete_UpdateStory.xaml.cs">
+      <DependentUpon>Delete_UpdateStory.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -120,16 +126,26 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddStory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Delete_UpdateStory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icons\add.png" />
     <Content Include="Icons\Hamb.png" />
     <Content Include="Icons\Moon.png" />
+    <Content Include="Icons\save.png" />
     <Content Include="Icons\search.png" />
     <Content Include="Icons\Star.png" />
     <Content Include="Journal.sqlite">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Test.jpg" />
     <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
@@ -174,10 +190,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\windows-phone-navigation-drawer-master\DrawerLayout\DrawerLayout.csproj">
+    <ProjectReference Include="..\DrawerLayout\DrawerLayout.csproj">
       <Project>{03b54b5f-ffc3-40a3-94df-6ab81c446e32}</Project>
       <Name>DrawerLayout</Name>
     </ProjectReference>

@@ -12,6 +12,7 @@ using System.IO;
 using Windows.Storage;
 using SQLite;
 using PhoneApp6.Model;
+using System.IO.IsolatedStorage;
 
 
 namespace PhoneApp6
@@ -92,8 +93,40 @@ namespace PhoneApp6
 
         // Код для выполнения при запуске приложения (например, из меню "Пуск")
         // Этот код не будет выполняться при повторной активации приложения
-        private void Application_Launching(object sender, LaunchingEventArgs e)
+        private async void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            StorageFile MyDBFile = null;
+
+            try
+            {
+                //Чтение файла БД из пути DB_PATH
+                MyDBFile = await StorageFile.GetFileFromPathAsync(DB_PATH);
+            }
+
+            catch (FileNotFoundException)
+            {
+                if (MyDBFile == null)
+                {
+                    //Копирование файла
+                    IsolatedStorageFile iso = IsolatedStorageFile.GetUserStoreForApplication();
+
+                    using (Stream input = Application.GetResourceStream(new Uri("Journal.sqlite", UriKind.Relative)).Stream)
+                    {
+                        using (IsolatedStorageFileStream output = iso.CreateFile(DB_PATH))
+                        {
+                            //Инитилизация буфера
+                            byte[] readBuffer = new byte[4096];
+                            int bytesRead = -1;
+
+                            //Копирования файла
+                            while ((bytesRead = input.Read(readBuffer, 0, readBuffer.Length)) > 0)
+                            {
+                                output.Write(readBuffer, 0, bytesRead);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         // Код для выполнения при активации приложения (переводится в основной режим)

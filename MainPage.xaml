@@ -39,7 +39,32 @@
         <drawerLayout:DrawerLayout Grid.Row="1" Background="#f77462">
             <!--Основной контент-->
             <Grid x:Name="MainFrame" Background="White">
-                
+                <StackPanel Orientation="Vertical">
+                    <ListBox x:Name="MemoList" SelectionChanged="MemoList_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Background="Transparent">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <TextBlock Grid.Row="1" x:Name="note" Text="бла-бла-бла-..."/>
+                                        <TextBlock Grid.Row="0" Grid.Column="3" Text="19"/>
+                                        
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
             </Grid>
             
             <!--Гамбургер меню-->
@@ -94,7 +119,7 @@
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="False">
-            <shell:ApplicationBarIconButton IconUri="/Icons/add.png" Text="add"/>
+            <shell:ApplicationBarIconButton IconUri="/Icons/add.png" Text="add" Click="ApplicationBarIconButton_Click"/>
             <shell:ApplicationBarIconButton IconUri="/Icons/search.png" Text="search"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
