@@ -31,7 +31,7 @@ namespace PhoneApp6.Views
             DBHelperClass_Dreams DB_Helper = new DBHelperClass_Dreams();
             if (StoryTxt.Text != "" || ui.Text != "")
             {
-                //DB_Helper.Insert(new Dreams(StoryTxt.Text, ui.Text));
+                DB_Helper.Insert(new Dreams(StoryTxt.Text, ui.Text));
                 NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
             }
 
