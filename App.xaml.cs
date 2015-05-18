@@ -72,7 +72,6 @@ namespace PhoneApp6
                 using (var db = new SQLiteConnection(DB_PATH))
                 {
                     db.CreateTable<Dreams>();
-                    //db.CreateTable<Notes>();
                 }
             }
         }

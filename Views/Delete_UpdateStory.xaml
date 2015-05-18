@@ -32,4 +32,11 @@
         </Grid>
     </Grid>
 
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsMenuEnabled="False" IsVisible="True">
+            <shell:ApplicationBarIconButton Text="delete" IconUri="/Icons/edit.png"/>
+            <shell:ApplicationBarIconButton Text="edit" IconUri="/Icons/delete.png"/>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+    
 </phone:PhoneApplicationPage>
