@@ -76,6 +76,11 @@ namespace PhoneApp6
             }
         }
 
+        //async public void CreateFolres()
+        //{
+            
+        //}
+
         public async Task<bool> CheckFileExists(string fileName)
         {
             try
@@ -126,6 +131,14 @@ namespace PhoneApp6
                     }
                 }
             }
+
+            //Получение корневого каталога
+            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+            //Создание локального каталога
+            var dataFolder = await local.CreateFolderAsync("Photos", CreationCollisionOption.OpenIfExists);
+            //Доступ к БД
+            //var dataFolder = await local.GetFolderAsync("DataFolder");
         }
 
         // Код для выполнения при активации приложения (переводится в основной режим)

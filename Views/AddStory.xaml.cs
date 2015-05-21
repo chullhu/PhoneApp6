@@ -11,6 +11,13 @@ using PhoneApp6.ViewModel;
 using PhoneApp6.Model;
 using Microsoft.Phone.Tasks;
 using System.Windows.Media.Imaging;
+using Windows.Storage.Pickers;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.IO;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Media.PhoneExtensions;
+using System.IO.IsolatedStorage;
 
 namespace PhoneApp6.Views
 {
@@ -21,20 +28,21 @@ namespace PhoneApp6.Views
             InitializeComponent();
         }
 
-        void pct_Completed(object sender, PhotoResult e)
-        {
-            BitmapImage bi = new BitmapImage();
-            if (e.Error == null && e.TaskResult == TaskResult.OK)
-            {
-                bi.SetSource(e.ChosenPhoto);
-                Img.Source = bi;
-            }
 
-            else
-            {
-                MessageBox.Show("не могу открыть фотку");
-            }
-        }
+        //void pct_Completed(object sender, PhotoResult e)
+        //{
+        //    BitmapImage bi = new BitmapImage();
+        //    if (e.Error == null && e.TaskResult == TaskResult.OK)
+        //    {
+        //        bi.SetSource(e.ChosenPhoto);
+        //        Img.Source = bi;
+        //    }
+
+        //    else
+        //    {
+        //        MessageBox.Show("не могу открыть фотку");
+        //    }
+        //}
 
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
@@ -53,14 +61,44 @@ namespace PhoneApp6.Views
 
         private void ChoosePhoto_Click(object sender, RoutedEventArgs e)
         {
-            PhotoChooserTask pct = new PhotoChooserTask();
+            //PhotoChooserTask pct = new PhotoChooserTask();
 
-            pct.Completed +=pct_Completed;
-            pct.PixelHeight = 250;
-            pct.PixelWidth = 250;
-            pct.ShowCamera = true;
+            //pct.Completed += pct_Completed;
+            //pct.PixelHeight = 400;
+            //pct.PixelWidth = 400;
+            //pct.ShowCamera = true;
 
-            pct.Show();
+            //pct.Show();
+
+            var pc = new PhotoChooserTask();
+            pc.Completed += pc_Completed;
+            pc.ShowCamera = true;
+            pc.Show();
         }
+
+        void pc_Completed(object sender, PhotoResult e)
+        {
+            var originalName = Path.GetFileName(e.OriginalFileName);
+            SaveImage(e.ChosenPhoto, originalName, 0, 100);
+        }
+
+        public static void SaveImage(Stream imageName, string fileName, int orientation, int quality)
+        {
+            using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                if (isolatedStorage.FileExists(fileName))
+                    isolatedStorage.DeleteFile(fileName);
+
+                var fileStream = isolatedStorage.CreateFile(fileName);
+                var bitMap = new BitmapImage();
+                bitMap.SetSource(imageName);
+
+                var wb = new WriteableBitmap(bitMap);
+                wb.SaveJpeg(fileStream, wb.PixelWidth, wb.PixelHeight, orientation, quality);
+                fileStream.Close();
+            }
+        }
+
+        
     }
 }

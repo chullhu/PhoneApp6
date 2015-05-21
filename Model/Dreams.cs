@@ -29,6 +29,12 @@ namespace PhoneApp6.Model
             set;
         }
 
+        public byte[] Image
+        {
+            get;
+            set;
+        }
+
         private int idValue;
         private string DateValue = string.Empty;
         private string TextValue = string.Empty;
