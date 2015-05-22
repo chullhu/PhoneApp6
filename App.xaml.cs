@@ -133,11 +133,11 @@ namespace PhoneApp6
             }
 
             //Получение корневого каталога
-            StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
+            //StorageFolder local = Windows.Storage.ApplicationData.Current.LocalFolder;
 
             //Создание локального каталога
-            var dataFolder = await local.CreateFolderAsync("Photos", CreationCollisionOption.OpenIfExists);
-            //Доступ к БД
+            //var dataFolder = await local.CreateFolderAsync("Photos", CreationCollisionOption.OpenIfExists);
+            //Доступ к каталогу DataFolder
             //var dataFolder = await local.GetFolderAsync("DataFolder");
         }
 

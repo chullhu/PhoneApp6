@@ -29,18 +29,13 @@ namespace PhoneApp6.Model
             set;
         }
 
-        public byte[] Image
-        {
-            get;
-            set;
-        }
-
         private int idValue;
         private string DateValue = string.Empty;
         private string TextValue = string.Empty;
         private string TagValue = string.Empty;
         private bool StarValue = false;
         private bool FavValue = false;
+        private string ImageValue = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
         private string p1;
@@ -100,24 +95,38 @@ namespace PhoneApp6.Model
             }
         }
 
+        public string Image
+        {
+            get
+            { return this.ImageValue; }
+
+            set
+            {
+                if (value != this.ImageValue)
+                {
+                    this.ImageValue = value;
+                    NotifyPropertyChanged("Image");
+                }
+            }
+        }
+
         public Dreams()
         { 
         }
 
-        public Dreams(string date, string text, string tag, bool star, bool fav)
-        {
-            Date = date;
-            Text = text;
-            Tag = tag;
-            Star = star;
-            Fav = fav;
-        }
-
-        public Dreams(string date, string text)
+        public Dreams(string date, string text, string image)
         {
             // TODO: Complete member initialization
             this.Date = date;
             this.Text = text;
+            this.Image = image;
         }
+
+        //public Dreams(string p1, string p2)
+        //{
+        //    // TODO: Complete member initialization
+        //    this.p1 = p1;
+        //    this.p2 = p2;
+        //}
     }
 }

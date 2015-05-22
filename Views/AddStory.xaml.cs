@@ -23,34 +23,22 @@ namespace PhoneApp6.Views
 {
     public partial class AddStory : PhoneApplicationPage
     {
+
+        public string FileName = string.Empty;
         public AddStory()
         {
             InitializeComponent();
         }
 
-
-        //void pct_Completed(object sender, PhotoResult e)
-        //{
-        //    BitmapImage bi = new BitmapImage();
-        //    if (e.Error == null && e.TaskResult == TaskResult.OK)
-        //    {
-        //        bi.SetSource(e.ChosenPhoto);
-        //        Img.Source = bi;
-        //    }
-
-        //    else
-        //    {
-        //        MessageBox.Show("не могу открыть фотку");
-        //    }
-        //}
-
         private void ApplicationBarIconButton_Click(object sender, EventArgs e)
         {
+            string date = DateTime.Now.ToShortDateString();
             DBHelperClass_Dreams DB_Helper = new DBHelperClass_Dreams();
             if (StoryTxt.Text != "" || ui.Text != "")
             {
-                DB_Helper.Insert(new Dreams(StoryTxt.Text, ui.Text));
-                //NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative));
+                DB_Helper.Insert(new Class(date, StoryTxt.Text, FileName));
+                //NavigationService.Navigate(new Uri("MainPage.xaml", UriKind.Relative)); 
+                
             }
 
             else
@@ -61,15 +49,6 @@ namespace PhoneApp6.Views
 
         private void ChoosePhoto_Click(object sender, RoutedEventArgs e)
         {
-            //PhotoChooserTask pct = new PhotoChooserTask();
-
-            //pct.Completed += pct_Completed;
-            //pct.PixelHeight = 400;
-            //pct.PixelWidth = 400;
-            //pct.ShowCamera = true;
-
-            //pct.Show();
-
             var pc = new PhotoChooserTask();
             pc.Completed += pc_Completed;
             pc.ShowCamera = true;
@@ -82,9 +61,16 @@ namespace PhoneApp6.Views
             SaveImage(e.ChosenPhoto, originalName, 0, 100);
         }
 
-        public static void SaveImage(Stream imageName, string fileName, int orientation, int quality)
+        /// <summary>
+        /// Сохранение из Фотопленки в IsolatedStorage
+        /// </summary>
+        /// <param name="imageName"></param>
+        /// <param name="fileName"></param>
+        /// <param name="orientation"></param>
+        /// <param name="quality"></param>
+        public void SaveImage(Stream imageName, string fileName, int orientation, int quality)
         {
-            using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var isolatedStorage = IsolatedStorageFile.GetUserStoreForApplication()) 
             {
                 if (isolatedStorage.FileExists(fileName))
                     isolatedStorage.DeleteFile(fileName);
@@ -92,6 +78,8 @@ namespace PhoneApp6.Views
                 var fileStream = isolatedStorage.CreateFile(fileName);
                 var bitMap = new BitmapImage();
                 bitMap.SetSource(imageName);
+
+                FileName = fileName;
 
                 var wb = new WriteableBitmap(bitMap);
                 wb.SaveJpeg(fileStream, wb.PixelWidth, wb.PixelHeight, orientation, quality);
